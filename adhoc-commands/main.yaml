@@ -1,0 +1,17 @@
+---
+- name: Ad-hoc Commands
+  hosts: webserver
+  tasks:
+          - name: Create Group
+            group: name=ansible state=present
+          - name: Validate Group
+            shell: cat /etc/group | grep ansible
+          - name: Create User
+            user: name=ansible group=ansible
+          - name: Validate User
+            shell: cat /etc/passwd | grep ansible
+          - name: Copy File
+            copy: src=test.sh dest=/root/ mode=0755
+          - name: Execute File
+            command: sh /root/test.sh
+...

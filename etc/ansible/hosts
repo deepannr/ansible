@@ -1,0 +1,11 @@
+[mylaptop]
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+9c2ce40376fa ansible_ssh_host=172.17.0.4
+258b709b0668 ansible_ssh_host=172.17.0.5
+
+[webserver]
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+9c2ce40376fa ansible_ssh_host=172.17.0.4
+
+[dbserver]
+258b709b0668 ansible_ssh_host=172.17.0.5
