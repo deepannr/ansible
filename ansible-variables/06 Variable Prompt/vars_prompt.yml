@@ -10,23 +10,19 @@
   gather_facts: false
 
   # Variable: variables that will apply to the play, on all target systems
-  vars:
-    color_list:
-      - black
-      - red
-      - green
-  
+  vars_prompt:
+    - name: username
+      private: false
+      
+    - name: password
   # Task: the list of tasks that will be executed within the playbook
   tasks:       
-     - name: Displaying color list
+     - name: Displaying vars_prompt value of name
        debug:
-         msg: "{{ color_list }}"
-     - name: Displaying color list first item with dot notation
+         msg: "{{ username }}"
+         
+     - name: Displaying vars_prompt value of name
        debug:
-         msg: "{{ color_list.0}}"
-     - name: Displaying color list first item brackets notation
-       debug:
-         msg: "{{ color_list[1]}}"
-
+         msg: "{{ password }}"
 # Three dots indicate the end of a YAML document
 ...

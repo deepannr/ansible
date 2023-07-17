@@ -1,0 +1,63 @@
+---
+# YAML documents begin with the document separator ---
+# The minus in YAML this indicates a list item. The Playbook contains a list
+# of plays, with each play being a dictionary
+
+- name: 'Create and access variables inside the playbook'
+
+  # Target: where our play will run and options it will run with
+  hosts: oneserver
+  gather_facts: false  # If true then can access discovery variables from remote server.
+
+  # Variable: variables that will apply to the play, on all target systems
+  vars:
+          oneArray:
+                  index1: One Index
+          twoArray:
+                  {index1: Two Index}
+
+  # Task: the list of tasks that will be executed within the playbook
+  tasks:
+           - name: One Array Debug Message
+             debug:
+                    msg: "{{oneArray}}"
+
+           #- name: One Array Debug
+           #  debug: "{{oneArray}}" Won't Work
+
+           - name: Array1 Debug Message
+             debug:
+                     msg: "{{oneArray.index1}}"
+           - name: Array1 Debug
+             debug: "{{oneArray.index1}}"
+
+           - name: Array1 Dictionary Debug Message
+             debug:
+                     msg: "{{oneArray['index1']}}"
+
+           - name: Array1 Dictionary Debug
+             debug: "{{oneArray['index1']}}"
+
+           - name: Two Array Debug Message
+             debug:
+                     msg: "{{twoArray}}"
+
+            #- name: Two Array Debug
+            #  debug: "{{twoArray}}" Won't Work
+
+           - name: Array2 Debug Message
+             debug:
+                     msg: "{{twoArray.index1}}"
+           - name: Array2 Debug
+             debug: "{{twoArray.index1}}"
+
+           - name: Array2 Dictionary Debug Message
+             debug:
+                     msg: "{{twoArray['index1']}}"
+
+           - name: Array2 Dictionary Debug
+             debug: "{{twoArray['index1']}}"
+...
+# Three dots indicate the end of a YAML document
+
+## All has debug msg will display the value of the key else will display Hello World.

@@ -5,11 +5,14 @@ fe3c4c32ca96 ansible_ssh_host=172.17.0.3
 0d184bedbd78 ansible_ssh_host=172.17.0.6
 
 [oneserver]
-fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3 ansible_port=22 ansible_user=root
 
 [webservers]
-fe3c4c32ca96 ansible_ssh_host=172.17.0.3
-9c2ce40376fa ansible_ssh_host=172.17.0.4
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3 ansible_port=22 ansible_user=root
+9c2ce40376fa ansible_ssh_host=172.17.0.4 ansible_port=22 ansible_user=root
+
+[webservers:vars]
+http_port=8080
 
 [dbservers]
 258b709b0668 ansible_ssh_host=172.17.0.5

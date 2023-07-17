@@ -1,0 +1,27 @@
+---
+# YAML documents begin with the document separator ---
+# The minus in YAML this indicates a list item. The Playbook contains a list
+# of plays, with each play being a dictionary
+
+- name: 'create and access variables inside the playbook'
+
+  # Target: where our play will run and options it will run with
+  hosts:  webservers, dbservers
+  gather_facts: true
+
+ 
+  # Task: the list of tasks that will be executed within the playbook
+  tasks:       
+          - name: Print Port
+            debug:
+                    msg: "{{hostvars[ansible_hostname].ansible_port | default('Not Set') }}"
+
+          - name: Print HTTP Port #HTTP Port for webserves will be fetch from group variables in hosts
+            debug:
+                    msg: "{{hostvars[ansible_hostname]['http_port'] | default('Not Set')}}"
+
+          - name: Print User
+            debug:
+                    msg: "{{hostvars[ansible_hostname].ansible_user | default('Not Set')}}" #If not set then default value will be printed
+# Three dots indicate the end of a YAML document
+...
