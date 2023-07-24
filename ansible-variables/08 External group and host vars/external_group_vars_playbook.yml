@@ -6,14 +6,21 @@
 - name: 'create and access variables inside the playbook'
 
   # Target: where our play will run and options it will run with
-  hosts: fe3c4c32ca96
+  hosts: dbservers,fe3c4c32ca96
   gather_facts: true
 
  
   # Task: the list of tasks that will be executed within the playbook
   tasks:
-     - name: Displaying groupvars and hostvars from the directory structure
-       debug:
-         msg: "{{ extra_vars_key }}"
+          - name: 'Print User'
+            debug:
+                    msg: "{{ansible_user | default('Not Set')}}"
+
+          - name: 'Print DB User'
+            debug:
+                    msg: "{{db_port | default('Not Set')}}"
+          - name: 'Print Ansible Port'
+            debug:
+                    msg: "{{ansible_port | default('Not Set')}}"                    
 # Three dots indicate the end of a YAML document
 ...

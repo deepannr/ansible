@@ -6,7 +6,7 @@
 - name: 'create and access variables inside the playbook'
 
   # Target: where our play will run and options it will run with
-  hosts: 0d184bedbd78
+  hosts: fe3c4c32ca96
   gather_facts: true
 
  
@@ -14,6 +14,9 @@
   tasks:
      - name: Displaying groupvars and hostvars from the directory structure
        debug:
-         msg: "{{ db_port }}"
+         msg: "{{ extra_vars_key }}"
 # Three dots indicate the end of a YAML document
 ...
+
+# ansible-playbook external_extra_vars.yaml -e @extra_var_json.json
+# ansible-playbook external_extra_vars.yaml -e @extra_var_yaml.yaml
