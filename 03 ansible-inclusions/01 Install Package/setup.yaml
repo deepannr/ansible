@@ -1,0 +1,22 @@
+---
+# Install a package from tasks.yaml file
+
+- name: Install a Package
+  gather_facts: true
+  hosts: oneserver
+  
+  tasks:
+     - name: Read tasks.yaml and install
+       include: tasks.yaml
+       vars:
+         package: samba
+         service: smb
+         state: started
+       register: output # Here output will be registered in output variable and will be displayed in output msg tag
+     - name: debug the tasks
+       debug:
+         msg: output
+...
+
+# ansible-playbook setup.yaml --syntax-check
+# ansible-playbook setup.yaml

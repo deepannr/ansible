@@ -1,0 +1,13 @@
+---
+# Picks from the setup.yaml file and install
+
+- name: Install {{ package }} package
+  yum:
+    name: "{{ package }}"
+    state: latest
+    
+- name: start the service {{ service }}
+  service: 
+    name: "{{ service }}"
+    state: " {{ state }} "
+...

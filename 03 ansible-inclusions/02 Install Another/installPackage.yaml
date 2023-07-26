@@ -1,0 +1,13 @@
+---
+- name: install package
+  gather_facts: true
+  hosts: oneserver
+
+  tasks:
+          - name: include packages
+            include_vars: packageToInstall.yaml
+          - name: install {{ packages.myPkg }}
+            apt:
+                    name: "{{packages.myPkg}}"
+                    state: latest
+...
