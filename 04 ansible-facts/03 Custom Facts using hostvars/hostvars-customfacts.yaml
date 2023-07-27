@@ -1,0 +1,14 @@
+---
+- name: Using hostvars custom facts
+  hosts: mylaptop
+  gather_facts: true
+
+  tasks:
+          - name: Print Date
+            debug:
+                    msg: "{{hostvars[ansible_hostname].ansible_local.getDate1}}"
+
+          - name: Print Hostname
+            debug:
+                    msg: "{{hostvars[ansible_hostname].ansible_local.getHostName}}"
+...

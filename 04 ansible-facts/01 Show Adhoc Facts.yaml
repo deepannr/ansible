@@ -1,0 +1,19 @@
+# Show Adhoc Ansible facts
+# Refer list of facts from Factsforahost.txt
+
+- name: Show IP Address
+  hosts: mylaptop
+
+  tasks:
+          - name: Show Hostname
+            debug:
+                    msg: "{{ansible_hostname}}"
+
+          - name: Show IP
+            debug:
+                    msg: "{{ansible_env.SSH_CONNECTION}}"
+
+          - name: Show Real Total Memory in MB
+            debug:
+                    msg: "{{ansible_memory_mb.real.total}} MB"
+...
