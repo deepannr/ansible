@@ -1,0 +1,13 @@
+---
+- name: For loop rangs
+  hosts: all
+
+  tasks:
+          - name: Range for loop
+            debug:
+                    msg: >
+                            For Loop
+                            {% for entry in range (1, 11) -%}
+                                Num is {{entry}}
+                            {% endfor %}
+...

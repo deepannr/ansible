@@ -1,0 +1,17 @@
+---
+# Test for templates
+
+- name: Ansible Jinja2 Templates
+  hosts: all
+  gather_facts: true
+
+  # List of Tasks
+  tasks:
+          - name: Templates
+            template:
+                    src: template.j2
+                    dest: "/tmp/template.json"
+                    trim_blocks: true
+...
+
+# After execution the result will be stored into /tmp/template.json file.

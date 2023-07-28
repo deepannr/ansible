@@ -1,0 +1,23 @@
+---
+# Test for if else if else
+- name: if elif condition
+  hosts: all
+  gather_facts: true
+
+  # Test for if elif else
+  tasks:
+          - name: if elif
+            debug:
+                    msg: >
+                            ---=== Test for if elif ===---
+                            {% if ansible_hostname == '9c2ce40376fa' -%}
+                                The hostname {{ ansible_hostname }} is correct
+
+                            {% elif ansible_hostname == '0d184bedbd78' -%}
+                                The hostname {{ ansible_hostname }} is accepted
+
+                            {% else -%}
+                                Not Accepted
+
+                            {% endif %}
+...

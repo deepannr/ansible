@@ -1,0 +1,15 @@
+---
+# Test for loop
+- name: Test for loop
+  hosts: all
+  gather_facts: true
+
+  tasks:
+         - name: Test for loop
+           debug:
+                  msg: >
+                          -- Test for For --
+                          {% for entry in ansible_hostname -%}
+                                Hostname {{ loop.index }} is {{ entry }}
+                          {% endfor %}
+...

@@ -1,0 +1,37 @@
+---
+- name: Ansible Filters
+  hosts: oneserver
+  gather_facts: true
+
+  tasks:
+          - name: Min Value
+            debug:
+                    msg: >
+                            {{ [1, 2, 3, 4, -1] | min }}
+
+          - name: Max Value
+            debug:
+                    msg: >
+                            {{ [100, 233, 0, 3333.3, 3] | max }}
+
+
+          - name: Unique Value
+            debug:
+                    msg: >
+                            {{ [1, 44.4, 2, 44.4, 2, 4] | unique }}
+
+          - name: Different Value
+            debug:
+                    msg: >
+                            {{ [1, 2, 3, 4, 5] | difference([1, 5]) }}
+
+          - name: Filter hostname
+            debug:
+                    msg: >
+                            {{ "http://docs.ansible.com/ansible/latest/playbooks_filters.html" | urlsplit('hostname') }}
+
+          - name: Random
+            debug:
+                    msg: >
+                            {{ ['dee', 'pan', 'sni'] | random }}
+...
