@@ -1,0 +1,32 @@
+---
+# Based on the OS, the application port, user and the path will be set.
+
+- name: Preset application settings based on OS
+  hosts: webservers
+
+  # Will be executed for all the webservers
+  tasks:
+          - name: Set Ansible OS
+            set_fact:
+                    ansible_os: "{{ ansible_os_family | upper }}"
+
+          - name: Set for CENTOS
+            set_fact:
+                    appln_port: 80
+                    appln_user: root
+                    appln_path: /usr/bin
+            when: ansible_os == 'CENTOS'
+
+          - name: Set for DEBIAN
+            set_fact:
+                    appln_port: 8080
+                    appln_user: deepan
+                    appln_path: /root/usr
+            when: ansible_os == 'DEBIAN'
+
+
+          - name: Show Preset Facts
+            debug:
+                      msg: "User: {{ appln_user }}, Path: {{ appln_path }}, Port: {{ appln_port }}"
+
+...

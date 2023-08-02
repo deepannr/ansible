@@ -1,0 +1,14 @@
+---
+- name: Multiple Commands
+  hosts: localhost
+
+  tasks:
+    - name: Pause for 5 seconds
+      pause:
+        seconds: 5
+
+    - name: Pause for 5 seconds with prompt
+      pause:
+        seconds: 5
+        prompt: This is a prompt during pause
+...

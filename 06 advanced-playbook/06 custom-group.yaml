@@ -1,0 +1,17 @@
+---
+-
+  hosts: all
+
+  tasks:
+          - name: Create alias
+            group_by:
+              key: "custom_{{ansible_distribution | lower}}"
+
+-
+
+  hosts: custom_ubuntu
+
+  tasks:
+          - name: Ping All
+            ping:
+...

@@ -1,0 +1,13 @@
+---
+- name: Merge config files
+  hosts: localhost
+
+  tasks:
+          - name: Assemble files
+            assemble:
+                    src: conf.d
+                    dest: conf.d/sshd_config
+...
+
+# Using the created custom config file sshd_config, try to connect to fe3c4c32ca96 
+# ssh -F sshd_config fe3c4c32ca96

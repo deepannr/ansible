@@ -1,0 +1,16 @@
+---
+-
+  hosts: localhost
+  tasks:
+          - name: Add host to a group
+            add_host:
+                    name: 9c2ce40376fa
+                    groups: ans_group1, ans_group2
+
+
+-
+  hosts: ans_group1
+  tasks:
+          - name: Ping ans_Group1
+            ping:
+...

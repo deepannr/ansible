@@ -1,0 +1,20 @@
+---
+# Setting a temporary fact and setting an ansible setting to a fact and fetching the facts
+
+- name: Setting a Fact
+  hosts: localhost
+
+  # This Fact will be executed only to the localhost
+  tasks:
+          - name: Set Fact
+            set_fact:
+                    our_fact: ansible fact
+                    ansible_os: "{{ ansible_os_family | upper }}"
+          - name: Get Fact
+            debug:
+                    msg: "{{ our_fact }}"
+
+          - name: Get Ansible OS
+            debug:
+                    msg: "{{ ansible_os }}"
+...
