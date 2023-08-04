@@ -1,0 +1,51 @@
+---
+- name: Create multiple groups, users and directories
+  hosts: oneserver
+
+  tasks:
+          - name: Create Groups
+            group:
+                    name: "{{item}}"
+                    state: present
+            with_items:
+                    - "hex"
+                    - "oct"
+                    - "mal"
+                    - "fem"
+                    - "red"
+                    - "blue"
+
+          - name: Create Users
+            user:
+                    name: "{{item.1}}"
+                    comment: "{{item.0.surname}}, {{item.1}}"
+                    groups: "{{item.1}}"
+                    state: present
+            with_subelements:
+                    -
+                            - surname: "numb"
+                              members:
+                                      - "hex"
+                                      - "oct"
+                            - surname: "gender"
+                              members:
+                                      - "mal"
+                                      - "fem"
+                            - surname: "color"
+                              members:
+                                      - "red"
+                                      - "blue"
+                    - members
+          - name: Create Directories
+            file:
+                     dest: "/home/{{item.0}}/{{item.1}}"
+                     state: directory
+                     owner: "{{item.0}}"
+                     group: "{{item.0}}"
+            with_nested:
+                     - ["hex", "oct", "mal", "fem"]
+                     - ["temp", "access"]
+...
+
+# On typing tail -f /etc/passwd will be able to see the users and their groups
+# ll /home/fem will be able to see folders temp, access owned by fem and group by fem.

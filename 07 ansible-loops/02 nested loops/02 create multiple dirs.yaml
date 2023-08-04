@@ -1,0 +1,26 @@
+---
+- name: Create Multiple directories for users
+  hosts: oneserver
+
+  vars:
+          user_with_items:
+                  - name: "one"
+                    personal_directories:
+                            - "otmp1"
+                            - "otmp2"
+                  - name: "two"
+                    personal_directories:
+                            - "ttmp1"
+                            - "ttmp2"
+          common_directories:
+                   - ".ssh"
+                   - "depl"
+
+  tasks:
+          - name: Create directories
+            file:
+                    dest: "/home/{{item.0.name}}/{{item.1}}"
+                    state: directory
+            with_nested:
+                    - "{{user_with_items}}"
+...

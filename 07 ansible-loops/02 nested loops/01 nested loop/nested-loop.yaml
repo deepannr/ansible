@@ -1,0 +1,16 @@
+---
+# Using Nested loop, create multiple users
+- name: Create Nested Loop
+  hosts: oneserver
+
+  tasks:
+          - name: Create Users
+            user:
+                    name: "{{item[0]}}"
+                    state: present
+            with_nested:
+                    - ['one', 'two', 'three']
+                    - ['ten', 'twenty', 'thirty']
+...
+
+# execute getent passwd | cut -d':' -f1 in the target server to see the users created and under /home/ there are respective folders created.
