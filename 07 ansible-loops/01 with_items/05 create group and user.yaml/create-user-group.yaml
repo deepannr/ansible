@@ -1,0 +1,26 @@
+---
+- name: Create Users and Groups
+  hosts: oneserver
+
+  tasks:
+          - name: Create Group
+            group:
+                    name: "{{item.key}}"
+                    gid: "{{item.value.group_id}}"
+                    state: present
+            with_dict:
+                    grp1:
+                            group_id: 123
+                    grp2:
+                            group_id: 124
+          - name: Create User
+            user:
+                   name: "{{item.name}}"
+                   groups: "{{item.group}}"
+                   comment: "{{item.full_name}}"
+                   state: present
+            with_items:
+                    - {name: usr1, full_name: User1, group: grp1}
+                    - {name: usr2, full_name: User2, group: grp1}
+                    - {name: usr3, full_name: User3, group: grp2}
+...

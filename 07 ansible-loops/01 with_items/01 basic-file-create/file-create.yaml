@@ -1,0 +1,29 @@
+---
+- name: Basic File Creation
+  hosts: all
+
+  tasks:
+          - name: Conf a file
+            copy:
+                    content: "Welcome to {{item}} Ansible"
+                    dest: /root/file
+            notify: Create Handler
+            with_items: ['Oraclei_Linux', 'Ubuntu']
+            when: ansible_distribution == item
+
+  handlers:
+          - name: Create Handler
+            debug:
+                    msg: Created File
+...
+
+# After execution for each OS, under /root folder a file by name "file" will be created.
+# If value is changed then the message will be displayed in handler or will not display
+# with_items: ['Oraclei_Linux', 'Ubuntu'] can be given as 
+# with_items:
+   - Oracle_lunix
+   - Ubuntu
+
+# If we run play book again then as already file created, changed is not done so handler message will not be executed.
+
+ 

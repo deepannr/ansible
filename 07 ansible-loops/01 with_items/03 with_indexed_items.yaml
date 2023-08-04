@@ -1,0 +1,13 @@
+---
+- name: With indexed items
+  hosts: localhost
+
+  tasks:
+          - name: Getting indexed items
+            debug:
+                    msg: "Key {{item[0]}} and value {{item[1]}}"
+            with_indexed_items:
+                    - "Zero"
+                    - "One"
+                    - "Two"
+...

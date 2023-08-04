@@ -1,0 +1,16 @@
+---
+- name: Create user with dictionary
+  hosts: oneserver
+
+  tasks:
+          - name: Create Users
+            user:
+                    name: "{{item.key}}"
+                    comment: "{{item.value.full_name}}"
+                    state: absent # If state absent then users will be removed.
+            with_dict:
+                    deepan:
+                            full_name: Deepan N R
+                    msds:
+                            full_name: Dhoni M S
+...
