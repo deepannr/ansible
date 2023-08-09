@@ -1,0 +1,22 @@
+---
+- name: Install on Register
+  hosts: all
+
+  tasks:
+          - name: Fetch Hostname and register
+            command: hostname -s
+            when:
+                    - ansible_distribution == "Ubuntu"
+                    - ansible_distribution_major_version | int >= 8
+                    - ansible_hostname == "9c2ce40376fa"
+            register: output
+
+          - name: Install Patch if changed
+            apt:
+                    name: patch
+                    state: present
+            when: output.changed
+...
+
+# Output will be registered only for the matching host
+# The package "patch" will be installed only for the registered output

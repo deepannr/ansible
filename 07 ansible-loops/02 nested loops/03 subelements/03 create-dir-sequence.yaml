@@ -1,0 +1,45 @@
+---
+- name: Create User and Directory sequence
+  hosts: webservers
+
+  tasks:
+          - name: Create a User
+            user:
+                    name: "{{item.key}}"
+                    state: present
+                    comment: "User {{item.key}} for {{item.value.Name}}"
+            with_dict:
+                    seqn:
+                            Name: Sequence User
+          - name: Create Sequence Directories
+            file:
+                    dest: /home/seqn/dir_{{item}}
+                    state: directory
+            with_sequence: start=0 end=50 stride=10
+
+...
+
+# On ll /root/seqn will find list of directories 
+# drwxr-xr-x 2 root root 4096 Aug  7 07:48 dir_0/
+# drwxr-xr-x 2 root root 4096 Aug  7 07:48 dir_10/
+# drwxr-xr-x 2 root root 4096 Aug  7 07:48 dir_20/
+# drwxr-xr-x 2 root root 4096 Aug  7 07:48 dir_30/
+# drwxr-xr-x 2 root root 4096 Aug  7 07:48 dir_40/
+# drwxr-xr-x 2 root root 4096 Aug  7 07:48 dir_50/
+
+#          - name: Create Sequence Directories
+#            file:
+#                    state: directory
+#            with_sequence: start=0 end=20 stride=1 format=/home/seqn/hex_sqe_%x
+            
+# Here folder will be created in hexa format like hex_sqe_0 to 9, a-f
+
+# with_sequence: count=5 format=/home/seqn/dec_%x
+# Here 5 folders will be created in decimal format
+
+# with_random_choice:
+#      - "google"
+#      - "facebook"
+#      - "linkedin"
+#      - "microsoft"
+# Here folders will be created random

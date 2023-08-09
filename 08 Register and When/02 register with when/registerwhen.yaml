@@ -1,0 +1,28 @@
+---
+- name: When Playbook
+  hosts: all
+
+  tasks:
+          - name: Display host for matching
+            command: hostname -s
+            register: output
+            when: (ansible_distribution == "Ubuntu" and ansible_hostname == "fe3c4c32ca96") or
+                  (ansible_distribution == "Ubuntu" and ansible_hostname == "9c2ce40376fa")
+          - name: Display matching hosts
+            debug:
+                    msg: "{{output}}"
+...
+
+# Only for the hostname fe3c4c32ca96 or 9c2ce40376fa, hostname -s will be printed for others it will be skipped.
+
+#----------------------#
+#(ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= 7) or
+#                  (ansible_distribution == "Ubuntu" and ansible_distribution_major_version | int >= 7)
+# Here major version can be compared as a integer variable
+
+#----------------------#
+# when: ansible_distribution == "Ubuntu" and ansible_hostname == "fe3c4c32ca96" can be written as
+# when:
+#    -  ansible_distribution == "Ubuntu" 
+#    - ansible_hostname == "fe3c4c32ca96"
+

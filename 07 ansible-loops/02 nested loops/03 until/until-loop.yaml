@@ -1,0 +1,13 @@
+---
+- name: Until Playbook
+  hosts: webservers
+
+  tasks:
+          - name: Run Script
+            script: random.sh
+            register: output
+            retries: 100
+            until: output.stdout.find("8") != -1
+...
+
+# Here until the random number generated is 8, will keep execute. Also random number is acquired from random.sh

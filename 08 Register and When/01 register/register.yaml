@@ -1,0 +1,13 @@
+---
+- name: Register Output and Display
+  hosts: oneserver
+
+  tasks:
+          - name: Register Hostname
+            command: hostname -s
+            register: output
+          - name: Display Output Name
+            debug:
+                    msg: "{{output}}"
+...
+# Here the output of hostname -s is stored in "output" variable and debug shows the message "output"

@@ -1,0 +1,29 @@
+---
+- name: Register, Install for Matching and Skipped
+  hosts: 9c2ce40376fa, fe3c4c32ca96
+
+  tasks:
+          - name: Register the hostname to variable
+            command: hostname -s
+            when:
+                    - ansible_distribution == "Ubuntu"
+                    - ansible_hostname == "fe3c4c32ca96"
+                    - ansible_distribution_major_version | int >= 9
+                    - ansible_hostname == "fe3c4c32ca96"
+            register: output
+
+          - name: Install using apt for matching
+            apt:
+                    name: patch
+                    state: present
+            when: output is changed
+
+          - name: Install using yum for skipped
+            yum:
+                    name: patch
+                    state: present
+            when: output is skipped
+...
+
+# For the changed hosts, patch will be installed using apt
+# For the skipped hosts, patch will be installed using yum
