@@ -1,0 +1,35 @@
+---
+- name: Async with Polling
+  hosts: all
+
+  tasks:
+          - name: Sleep fe3c4c32ca96
+            command: /bin/sleep 3
+            async: 3
+            poll: 1
+            when: ansible_hostname == 'fe3c4c32ca96'
+
+          - name: 9c2ce40376fa
+            command: /bin/sleep 3
+            async: 3
+            poll: 1
+            when: ansible_hostname == '9c2ce40376fa'
+
+          - name: Sleep 258b709b0668
+            command: /bin/sleep 3
+            async: 3
+            poll: 1
+            when: ansible_hostname == '258b709b0668'
+
+          - name: Sleep 0d184bedbd78
+            command: /bin/sleep 3
+            async: 3
+            poll: 1
+            when: ansible_hostname == '0d184bedbd78'
+...
+
+# By default all the tasks are sync, one task will execute only after the previous task complete. 
+# ansible async triggers Ansible to run the task in the background which can be checked. async can tell Ansible how long the task should be allowed to run before Ansible gives it up and time out
+# The Poll keyword is auto-enabled whenever you use async and it has a default value as 10 seconds 
+# Which means If you are not defining the poll keyword with customized time period. By default Ansible would track the status of the async task every 10 seconds.
+# ps -ef | grep ansible which will provide 4 jobs running.

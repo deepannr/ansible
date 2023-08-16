@@ -1,0 +1,39 @@
+---
+- name: Async with Polling
+  hosts: all
+
+  tasks:
+          - name: Sleep fe3c4c32ca96
+            command: /bin/sleep 3
+            async: 3
+            poll: 1
+            when: ansible_hostname == 'fe3c4c32ca96'
+            register: result1
+
+          - name: 9c2ce40376fa
+            command: /bin/sleep 3
+            async: 3
+            poll: 1
+            when: ansible_hostname == '9c2ce40376fa'
+            register: result2
+
+          - name: Sleep 258b709b0668
+            command: /bin/sleep 3
+            async: 3
+            poll: 1
+            when: ansible_hostname == '258b709b0668'
+            register: result3
+
+          - name: Sleep 0d184bedbd78
+            command: /bin/sleep 3
+            async: 3
+            poll: 1
+            when: ansible_hostname == '0d184bedbd78'
+            register: result4
+
+          - name: Get Output 1
+            debug:
+                    msg: "{{result1}}"
+...
+
+#in output if rc=0 then no error

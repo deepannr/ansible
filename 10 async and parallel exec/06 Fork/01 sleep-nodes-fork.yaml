@@ -1,0 +1,16 @@
+---
+- name: Sleep Nodes
+  hosts: all
+
+  tasks:
+          - name: Sleep 1
+            command: /bin/sleep 5
+          - name: Sleep 2
+            command: /bin/sleep 5
+          - name: Sleep 3
+            command: /bin/sleep 5
+          - name: Sleep 4
+            command: /bin/sleep 5
+...
+
+# Here first 2 nodes will be executed at same time and next 2 nodes.

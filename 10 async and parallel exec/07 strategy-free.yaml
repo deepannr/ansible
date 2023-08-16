@@ -1,0 +1,19 @@
+---
+# Using the free strategy, Ansible uses available forks to execute tasks on each host as quickly as possible. 
+# Even if an earlier task is still running on one host, Ansible executes later tasks on other hosts. 
+# The free strategy uses available forks more efficiently. If your playbook stalls on each task, waiting for one slow host, 
+# consider using strategy: free to boost overall performance.
+
+- name: Free Strategy
+  hosts: all
+
+  tasks:
+          - name: Sleep 1
+            command: /bin/sleep {{ 10 | random }} # Sleep between 1 to 10 seconds in random.
+          - name: Sleep 2
+            command: /bin/sleep {{ 10 | random }}
+          - name: Sleep 3
+            command: /bin/sleep {{ 10 | random }}
+          - name: Sleep 4
+            command: /bin/sleep {{ 10 | random }}
+...

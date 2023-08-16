@@ -1,0 +1,23 @@
+---
+- name: Sleep every host for some time
+  hosts: all
+
+  tasks:
+          - name: Sleep fe3c4c32ca96
+            command: /bin/sleep 3
+            when: ansible_hostname == "fe3c4c32ca96"
+
+          - name: Sleep 9c2ce40376fa
+            command: /bin/sleep 3
+            when: ansible_hostname == "9c2ce40376fa"
+
+          - name: Sleep 258b709b0668
+            command: /bin/sleep 3
+            when: ansible_hostname == "258b709b0668"
+
+          - name: Sleep 0d184bedbd78
+            command: /bin/sleep 3
+            when: ansible_hostname == "0d184bedbd78"
+...
+
+# Execute using "time ansible-playbook sleep-nodes.yaml" to know the exact time of execution like in the output file
