@@ -1,0 +1,22 @@
+---
+- name: Delegate by adding host
+  hosts: oneserver
+
+  tasks:
+          - name: Add a host
+            add_host:
+                  name: ansible_node5
+                  ansible_host: 3b06f0834082
+                  ansible_user: root
+
+          - name: Install httpd package
+            apt:
+                    name: httpd
+                    state: present
+            delegate_to: ansible_node5
+
+          - name: Install git
+            apt:
+                    name: git
+                    state: present
+...

@@ -14,5 +14,5 @@
             copy: src=getHostName.fact dest=/etc/ansible/facts.d mode=0755
 ...
 
-# Here both getDate1.fact and getHostName.fact are copied to all the servers
+# Here both getDate1.fact and getHostName.fact are copied to all the servers. The privileges need to be executable.
 # Execute ansible mylaptop -m setup -a 'filter=ansible_local' to show all custom facts Refer output.png

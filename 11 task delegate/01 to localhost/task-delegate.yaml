@@ -1,0 +1,31 @@
+---
+- name: Delegate task to localhost
+  hosts: webservers
+
+  tasks:
+          - name: Create user
+            user:
+                    name: delegate
+                    state: present
+            notify: show_message
+          - name: Create a file
+            file:
+                    path: "/root/delegate.log"
+                    state: touch
+            delegate_to: localhost
+          - name: Write to log file
+            lineinfile:
+                    path: "/root/delegate.log"
+                    state: present
+                    line: User delegate created successfully
+            delegate_to: localhost
+  handlers:
+          - name: show_message
+            debug:
+                    msg: "User Created Successfully"
+          - name: write_log
+            debug:
+                    msg: "User delegate created successfully"
+...
+
+# On Executing the playbook, the log file creation and adding to log files will be delegated to localhost in the file /root/delegate.log

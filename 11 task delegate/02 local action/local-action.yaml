@@ -1,0 +1,14 @@
+---
+- name: Local Action playbook
+  hosts: webservers
+
+  tasks:
+          - name: Get hostname using local action
+            local_action: command hostname
+            register: display_output
+            changed_when: false
+          - debug:
+                  msg="{{display_output.stdout}}"
+...
+
+# Here for displaying the hostname, as routed to local action, hostname will be displayed as the hostname for local server
