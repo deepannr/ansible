@@ -1,0 +1,232 @@
+For subsequent times
+-----------------------
+
+Install Ansible Master with ssh
+--------------------------------
+docker run --rm -dit --name dee-ansible vincesestodocker/try-ansible:latest
+docker exec -it dee-ansible /bin/bash
+
+In the next command prompt execute
+docker ps -a
+
+Start all the containers which were created for ansible in a single shot like below by providing container ids (IDs may differ in each case)
+docker container start fe3c4c32ca96 9c2ce40376fa 258b709b0668 0d184bedbd78
+
+Open each command prompt to attach each container
+docker container attach fe3c4c32ca96
+docker container attach 9c2ce40376fa
+docker container attach 258b709b0668
+docker container attach 0d184bedbd78
+
+Find the IP Address
+For master and each node execute
+hostname -i
+
+Master Node
+------------
+vi /etc/hosts - this is system host file
+172.17.0.2 39ebc1d4bf6f <hostname>
+172.17.0.3 <hostname>
+172.17.0.4 <hostname>
+172.17.0.5 <hostname>
+172.17.0.6 0d184bedbd78
+
+
+172.17.0.3 fe3c4c32ca96
+172.17.0.4 9c2ce40376fa
+172.17.0.5 258b709b0668
+172.17.0.6 0d184bedbd78
+
+Copy the ssh to both the nodes
+ssh-copy-id -i root@172.17.0.3
+ssh-copy-id -i root@172.17.0.4
+ssh-copy-id -i root@172.17.0.5
+ssh-copy-id -i root@172.17.0.6
+
+To login from master to node use 
+ssh root@172.17.0.3
+ssh root@172.17.0.4
+ssh root@172.17.0.5
+ssh root@172.17.0.6
+
+Execute in all child nodes
+/etc/init.d/ssh start
+
+mkdir /root/ansible-notes
+vi /root/ansible-notes/hosts - ansible host file
+[mylaptop]
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+9c2ce40376fa ansible_ssh_host=172.17.0.4
+258b709b0668 ansible_ssh_host=172.17.0.5
+0d184bedbd78 ansible_ssh_host=172.17.0.6
+
+[oneserver]
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+
+[webservers]
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+9c2ce40376fa ansible_ssh_host=172.17.0.4
+
+[dbservers]
+258b709b0668 ansible_ssh_host=172.17.0.5
+0d184bedbd78 ansible_ssh_host=172.17.0.6
+
+execute -  ansible mylaptop -m ping
+If it prompt for yes then type yes
+
+vi ansible.cfg
+[defaults]
+inventory = hosts
+
+
+For the first time
+------------------
+
+Install Ansible Master with ssh
+--------------------------------
+docker run --rm -dit --name dee-ansible vincesestodocker/try-ansible:latest
+docker exec -it dee-ansible /bin/bash
+
+After typing ansible --version if config file not there, execute the following
+apt remove ansible
+apt update
+apt install software-properties-common
+apt-add-repository --yes --update ppa:ansible/ansible
+apt install ansible
+
+Execute ansible --version  - to check ansible is correctly deployed
+Also cd ~/.ssh - ssh is setup
+
+
+Create 2 linux nodes by opening 2 command prompts
+-------------------------------------------------
+docker container run -itd --name ansible_node1 ubuntu /bin/bash
+docker container run -itd --name ansible_node2 ubuntu /bin/bash
+docker container run -itd --name ansible_node3 ubuntu /bin/bash
+docker container run -itd --name ansible_node4 ubuntu /bin/bash
+docker ps -a
+
+For reference how to start and attach containers. For others hostname and/or IP Address may differ.
+docker container ls - will show both the containers
+
+docker container start fe3c4c32ca96 9c2ce40376fa 258b709b0668 0d184bedbd78
+
+docker container attach fe3c4c32ca96
+docker container attach 9c2ce40376fa
+docker container attach 258b709b0668
+docker container attach 0d184bedbd78
+
+Find the IP Address
+For master and each node execute
+hostname -i
+
+For all the child nodes execute following to enable ssh
+apt update; apt install python2 openssh-client vim -y
+apt-get install iputils-ping 
+apt-get install openssh-server -y
+/etc/init.d/ssh start
+vi /etc/ssh/sshd_config
+Modify to PermitRootLogin yes
+restart ssh using service ssh restart
+passwd - set a new password
+
+Master Node
+------------
+vi /etc/hosts - this is system host file
+172.17.0.2 39ebc1d4bf6f <hostname>
+172.17.0.3 <hostname>
+172.17.0.4 <hostname>
+172.17.0.5 <hostname>
+172.17.0.6 0d184bedbd78
+
+
+172.17.0.3 fe3c4c32ca96
+172.17.0.4 9c2ce40376fa
+172.17.0.5 258b709b0668
+172.17.0.6 0d184bedbd78
+
+Generate ssh Key and use default
+ssh-keygen
+
+switch to ssh directory
+cd ~/.ssh
+
+Copy the ssh to both the nodes
+ssh-copy-id -i root@172.17.0.3
+ssh-copy-id -i root@172.17.0.4
+ssh-copy-id -i root@172.17.0.5
+ssh-copy-id -i root@172.17.0.6
+
+To any other user,
+ssh-copy-id Deepan.Reguraman@172.17.0.6
+ssh Deepan.Reguraman@172.17.0.6
+
+To login from master to node use 
+ssh root@172.17.0.3
+ssh root@172.17.0.4
+ssh root@172.17.0.5
+ssh root@172.17.0.6
+
+
+mkdir /root/ansible-notes 
+vi ansible.cfg - Custom inventory file
+[defaults]
+inventory = hosts
+
+vi /root/ansible-notes/hosts - ansible host file - ansible host file (Custom Host file)
+[mylaptop]
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+9c2ce40376fa ansible_ssh_host=172.17.0.4
+258b709b0668 ansible_ssh_host=172.17.0.5
+0d184bedbd78 ansible_ssh_host=172.17.0.6
+
+[oneserver]
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+
+[webservers]
+fe3c4c32ca96 ansible_ssh_host=172.17.0.3
+9c2ce40376fa ansible_ssh_host=172.17.0.4
+
+[dbservers]
+258b709b0668 ansible_ssh_host=172.17.0.5
+0d184bedbd78 ansible_ssh_host=172.17.0.6
+
+execute - ansible -m ping all
+9c2ce40376fa | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+258b709b0668 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+
+Creating new child node
+-----------------------
+docker container run -itd --name ansible_node5 ubuntu /bin/bash
+docker container attach <containerid>
+
+In the Child nodes
+------------------
+For all the child nodes execute following to enable ssh
+apt update; apt install python2 openssh-client vim -y
+apt-get install iputils-ping 
+apt-get install openssh-server -y
+/etc/init.d/ssh start
+vi /etc/ssh/sshd_config
+Modify to PermitRootLogin yes
+restart ssh using service ssh restart
+passwd - set a new password
+
+In the master node
+-----------------
+ssh-copy-id -i root@172.17.0.7
+
+Try login using
+ssh root@172.17.0.7
