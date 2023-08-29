@@ -1,4 +1,4 @@
-For subsequent times
+1. For subsequent times
 -----------------------
 
 Install Ansible Master with ssh
@@ -79,7 +79,7 @@ vi ansible.cfg
 inventory = hosts
 
 
-For the first time
+2. For the first time
 ------------------
 
 Install Ansible Master with ssh
@@ -208,7 +208,7 @@ execute - ansible -m ping all
     "ping": "pong"
 }
 
-Creating new child node
+3. Creating new child node
 -----------------------
 docker container run -itd --name ansible_node5 ubuntu /bin/bash
 docker container attach <containerid>
