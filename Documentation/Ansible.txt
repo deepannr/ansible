@@ -98,7 +98,7 @@ Execute ansible --version  - to check ansible is correctly deployed
 Also cd ~/.ssh - ssh is setup
 
 
-Create 2 linux nodes by opening 2 command prompts
+Create 4 linux nodes by opening 4 command prompts
 -------------------------------------------------
 docker container run -itd --name ansible_node1 ubuntu /bin/bash
 docker container run -itd --name ansible_node2 ubuntu /bin/bash
