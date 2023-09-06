@@ -1,4 +1,4 @@
-For subsequent times
+1. For subsequent times
 -----------------------
 
 Install Ansible Master with ssh
@@ -37,23 +37,17 @@ vi /etc/hosts - this is system host file
 172.17.0.5 258b709b0668
 172.17.0.6 0d184bedbd78
 
-Copy the ssh to both the nodes
-ssh-copy-id -i root@172.17.0.3
-ssh-copy-id -i root@172.17.0.4
-ssh-copy-id -i root@172.17.0.5
-ssh-copy-id -i root@172.17.0.6
-
-To login from master to node use 
-ssh root@172.17.0.3
-ssh root@172.17.0.4
-ssh root@172.17.0.5
-ssh root@172.17.0.6
-
 Execute in all child nodes
 /etc/init.d/ssh start
 
 mkdir /root/ansible-notes
-vi /root/ansible-notes/hosts - ansible host file
+cd  /root/ansible-notes
+
+vi ansible.cfg
+[defaults]
+inventory = hosts
+
+vi hosts - ansible host file
 [mylaptop]
 fe3c4c32ca96 ansible_ssh_host=172.17.0.3
 9c2ce40376fa ansible_ssh_host=172.17.0.4
@@ -71,15 +65,12 @@ fe3c4c32ca96 ansible_ssh_host=172.17.0.3
 258b709b0668 ansible_ssh_host=172.17.0.5
 0d184bedbd78 ansible_ssh_host=172.17.0.6
 
+
 execute -  ansible mylaptop -m ping
 If it prompt for yes then type yes
 
-vi ansible.cfg
-[defaults]
-inventory = hosts
 
-
-For the first time
+2. For the first time
 ------------------
 
 Install Ansible Master with ssh
@@ -98,7 +89,7 @@ Execute ansible --version  - to check ansible is correctly deployed
 Also cd ~/.ssh - ssh is setup
 
 
-Create 2 linux nodes by opening 2 command prompts
+Create 4 linux nodes by opening 4 command prompts
 -------------------------------------------------
 docker container run -itd --name ansible_node1 ubuntu /bin/bash
 docker container run -itd --name ansible_node2 ubuntu /bin/bash
@@ -111,6 +102,7 @@ docker container ls - will show both the containers
 
 docker container start fe3c4c32ca96 9c2ce40376fa 258b709b0668 0d184bedbd78
 
+Open each command prompt to attach each container
 docker container attach fe3c4c32ca96
 docker container attach 9c2ce40376fa
 docker container attach 258b709b0668
@@ -169,11 +161,12 @@ ssh root@172.17.0.6
 
 
 mkdir /root/ansible-notes 
+cd /root/ansible-notes
 vi ansible.cfg - Custom inventory file
 [defaults]
 inventory = hosts
 
-vi /root/ansible-notes/hosts - ansible host file - ansible host file (Custom Host file)
+vi hosts - ansible host file - ansible host file (Custom Host file)
 [mylaptop]
 fe3c4c32ca96 ansible_ssh_host=172.17.0.3
 9c2ce40376fa ansible_ssh_host=172.17.0.4
@@ -207,7 +200,7 @@ execute - ansible -m ping all
     "ping": "pong"
 }
 
-Creating new child node
+3. Creating new child node
 -----------------------
 docker container run -itd --name ansible_node5 ubuntu /bin/bash
 docker container attach <containerid>
