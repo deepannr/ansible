@@ -40,21 +40,6 @@ vi /etc/hosts - this is system host file
 Execute in all child nodes
 /etc/init.d/ssh start
 
-
-Master Node
-------------
-Copy the ssh to both the nodes
-ssh-copy-id -i root@172.17.0.3
-ssh-copy-id -i root@172.17.0.4
-ssh-copy-id -i root@172.17.0.5
-ssh-copy-id -i root@172.17.0.6
-
-To login from master to node use 
-ssh root@172.17.0.3
-ssh root@172.17.0.4
-ssh root@172.17.0.5
-ssh root@172.17.0.6
-
 mkdir /root/ansible-notes
 cd  /root/ansible-notes
 
