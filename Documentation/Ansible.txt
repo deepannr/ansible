@@ -37,6 +37,12 @@ vi /etc/hosts - this is system host file
 172.17.0.5 258b709b0668
 172.17.0.6 0d184bedbd78
 
+Execute in all child nodes
+/etc/init.d/ssh start
+
+
+Master Node
+------------
 Copy the ssh to both the nodes
 ssh-copy-id -i root@172.17.0.3
 ssh-copy-id -i root@172.17.0.4
@@ -48,9 +54,6 @@ ssh root@172.17.0.3
 ssh root@172.17.0.4
 ssh root@172.17.0.5
 ssh root@172.17.0.6
-
-Execute in all child nodes
-/etc/init.d/ssh start
 
 mkdir /root/ansible-notes
 cd  /root/ansible-notes
