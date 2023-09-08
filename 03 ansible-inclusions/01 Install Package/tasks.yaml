@@ -4,10 +4,10 @@
 - name: Install {{ package }} package
   yum:
     name: "{{ package }}"
-    state: latest
+    state: "{{ packageState }}"
     
 - name: start the service {{ service }}
   service: 
     name: "{{ service }}"
-    state: " {{ state }} "
+    state: "{{ serviceState }}"
 ...

@@ -11,7 +11,8 @@
        vars:
          package: samba
          service: smb
-         state: started
+         packageState: latest
+         serviceState: started
        register: output # Here output will be registered in output variable and will be displayed in output msg tag
      - name: debug the tasks
        debug:

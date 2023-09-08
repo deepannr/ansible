@@ -1,3 +1,5 @@
+#In the master node where the inventory file is present, create group_vars directory and add this file 
+
 ---
 ansible_user: root
 db_port: 3306
